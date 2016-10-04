@@ -2,7 +2,7 @@
 NormalParticle[] homieG;
 void setup()
 {
-	size(800,800);
+	size(500,500);
 	background(0);
 	frameRate(100);
 
@@ -22,44 +22,95 @@ void draw()
 	}
 }
 
-class NormalParticle
-{
-	float myX, myY, speed, angle;
-	int shade;
-	NormalParticle()
+		class NormalParticle
 	{
-		myX = 400;
-		myY = 400;
-		shade = (int)(Math.random()*255);
-		speed = (float)(Math.random()*7)-3;
-		angle = (float)(Math.random()*(Math.PI*2));
+		float myX, myY, speed, angle;
+		int shade;
+		NormalParticle()
+		{
+			myX = 250;
+			myY = 250;
+			shade = (int)(Math.random()*255);
+			speed = (float)(Math.random()*7)-3;
+			angle = (float)(Math.random()*(Math.PI*2));
+
+		}
+
+		public void move()
+		{
+	 		myX += Math.cos(angle)*(speed);
+	 		myY += Math.sin(angle)*(speed);
+	 		angle += .01;
+		}
+		public void show()
+	 	{
+	 		//noStroke();
+	 		fill(255);
+	 		ellipse((float)myX,(float)myY,10,10);
+	 	}
+
+
 	}
-
-	void move()
-	{
- 		myX += Math.cos(angle)*(speed);
- 		myY += Math.sin(angle)*(speed);
-	}
-	void show()
- 	{
- 		//noStroke();
- 		fill(255);
- 		ellipse((float)myX,(float)myY,10,10);
- 	}
-
-
-}
 interface Particle
 {
-	//your code here
+	public void move();
+	public void show();
+
 }
-class OddballParticle //uses an interface
-{
-	//your code here
-}
-class JumboParticle //uses inheritance
-{
-	//your code here
-}
+
+		class OddballParticle //uses an interface
+		{
+				float myX, myY, speed, angle;
+				int shade;
+				OddballParticle()
+			{
+				myX = 250;
+				myY = 250;
+				shade = (int)(Math.random()*255);
+				speed = (float)(Math.random()*11)-3;
+				angle = (float)(Math.random()*(Math.PI*2));
+
+			}
+
+			public void move()
+			{
+		 		myX += Math.cos(angle)*(speed);
+		 		myY += Math.sin(angle)*(speed);
+		 		angle += .0025;
+			}
+			public void show()
+		 	{
+		 		//noStroke();
+		 		fill(0,255,0);
+		 		ellipse((float)myX,(float)myY,10,10);
+		 	}
+		}
+		class JumboParticle //uses inheritance
+		{
+				float myX, myY, speed, angle;
+				int shade;
+				JumboParticle()
+					{
+				myX = 250;
+				myY = 250;
+				shade = (int)(Math.random()*255);
+				speed = (float)(Math.random()*13)-3;
+				angle = (float)(Math.random()*(Math.PI*2));
+
+			}
+
+			public void move()
+			{
+		 		myX += Math.cos(angle)*(speed);
+		 		myY += Math.sin(angle)*(speed);
+		 		angle += .009;
+			}
+			public void show()
+		 	{
+		 		//noStroke();
+		 		fill((int)(Math.random()*255),(int)(Math.random()*255), (int)(Math.random()*255));
+		 		ellipse((float)myX,(float)myY,30,30);
+		 	}
+		}
 
 
