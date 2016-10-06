@@ -1,15 +1,27 @@
 //your code here
-NormalParticle[] homieG;
+Particle[] homieG;
 void setup()
 {
 	size(500,500);
 	background(0);
 	frameRate(100);
 
-	homieG = new NormalParticle[200];
+	homieG = new Particle[200];
 	for(int i = 0; i < homieG.length; i++)
 	{
-		homieG[i] = new NormalParticle();
+		if(i%2 == 0)
+		{
+			homieG[i] = new NormalParticle();
+		}
+		else if(i%21 == 0)
+		{
+			homieG[i] = new JumboParticle();
+		}
+		else
+		{
+			homieG[i] = new OddballParticle();
+		}
+		
 	}
 
 }
@@ -21,8 +33,14 @@ void draw()
 		homieG[i].show();
 	}
 }
+interface Particle
+{
+	public void move();
+	public void show();
 
-		class NormalParticle
+}
+
+		class NormalParticle implements Particle
 	{
 		float myX, myY, speed, angle;
 		int shade;
@@ -45,20 +63,14 @@ void draw()
 		public void show()
 	 	{
 	 		//noStroke();
-	 		fill(255);
+	 		fill(0,0,255);
 	 		ellipse((float)myX,(float)myY,10,10);
 	 	}
 
 
 	}
-interface Particle
-{
-	public void move();
-	public void show();
 
-}
-
-		class OddballParticle //uses an interface
+		class OddballParticle implements Particle
 		{
 				float myX, myY, speed, angle;
 				int shade;
@@ -67,7 +79,7 @@ interface Particle
 				myX = 250;
 				myY = 250;
 				shade = (int)(Math.random()*255);
-				speed = (float)(Math.random()*11)-3;
+				speed = (float)(Math.random()*7)-3;
 				angle = (float)(Math.random()*(Math.PI*2));
 
 			}
@@ -76,7 +88,7 @@ interface Particle
 			{
 		 		myX += Math.cos(angle)*(speed);
 		 		myY += Math.sin(angle)*(speed);
-		 		angle += .0025;
+		 		angle += .01;
 			}
 			public void show()
 		 	{
@@ -85,25 +97,13 @@ interface Particle
 		 		ellipse((float)myX,(float)myY,10,10);
 		 	}
 		}
-		class JumboParticle //uses inheritance
+		class JumboParticle extends OddballParticle
 		{
-				float myX, myY, speed, angle;
-				int shade;
-				JumboParticle()
-					{
-				myX = 250;
-				myY = 250;
-				shade = (int)(Math.random()*255);
-				speed = (float)(Math.random()*13)-3;
-				angle = (float)(Math.random()*(Math.PI*2));
-
-			}
-
 			public void move()
 			{
-		 		myX += Math.cos(angle)*(speed);
+				myX += Math.cos(angle)*(speed);
 		 		myY += Math.sin(angle)*(speed);
-		 		angle += .009;
+		 		angle -= .01;
 			}
 			public void show()
 		 	{
